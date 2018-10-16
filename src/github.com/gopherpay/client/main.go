@@ -1,27 +1,10 @@
+/* Interface
+
 package main
 
 import (
 	"github.com/gopherpay/payment"
 )
-
-// func main() {
-// 	credit := payment.CreateCreditAccount(
-// 		"Debra Ingram",
-// 		"1111-2222-3333-4444",
-// 		5,
-// 		2021,
-// 		123,
-// 	)
-
-// 	fmt.Printf("Owner name: %v\n", credit.OwnerName())
-// 	fmt.Printf("Card number: %v\n", credit.CardNumber())
-// 	fmt.Println("Trying to change card number")
-// 	err := credit.SetCardNumber("Invalid")
-// 	if err != nil {
-// 		fmt.Printf("That didn't work: %v\n", err)
-// 	}
-// 	fmt.Printf("Available credit: %v\n", credit.AvailableCredit())
-// }
 
 func main() {
 	var option payment.PaymentOption
@@ -39,4 +22,34 @@ func main() {
 	option = payment.CreateCashAccount()
 
 	option.ProcessPayment(500)
+}
+
+*/
+
+package main
+
+import "fmt"
+
+type CreditAccount struct{}
+
+func (c *CreditAccount) processPayment(amount float32) {
+	fmt.Println("Processing credit card payment...")
+}
+
+func CreateCreditAccount(chargeCh chan float32) *CreditAccount {
+	creditAccount := &CreditAccount{}
+	go func(chargeCh chan float32) {
+		for amount := range chargeCh {
+			creditAccount.processPayment(amount)
+		}
+	}(chargeCh)
+
+	return creditAccount
+}
+func main() {
+	chargeCh := make(chan float32)
+	CreateCreditAccount(chargeCh)
+	chargeCh <- 500
+	var a string
+	fmt.Scanln(&a)
 }
