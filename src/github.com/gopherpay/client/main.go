@@ -86,6 +86,7 @@ func main() {
 }
 */
 
+/*
 // Composition : Resolving Conflicts when Embedding
 package main
 
@@ -117,4 +118,24 @@ func (h *HybridAccount) AvailableFunds() float32 {
 func main() {
 	ha := &HybridAccount{}
 	fmt.Println(ha.AvailableFunds())
+}
+*/
+
+// Polymophism
+package main
+
+import (
+	"github.com/gopherpay/paybroker"
+)
+
+type PaymentOption interface {
+	ProcessPayment(float32) bool
+}
+
+func main() {
+	var option PaymentOption
+
+	option = &paybroker.PaymentBrokerAccount{}
+
+	option.ProcessPayment(500)
 }

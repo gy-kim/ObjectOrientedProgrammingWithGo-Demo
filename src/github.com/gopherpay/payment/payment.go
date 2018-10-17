@@ -1,3 +1,5 @@
+/* // Encapsulation
+
 package payment
 
 import (
@@ -88,4 +90,28 @@ func (c *CreditCard) SetSecurityCode(value int) {
 
 func (c CreditCard) AvailableCredit() float32 {
 	return 5000. // this can come from a web service, client doesn't know or care
+}
+*/
+
+// Polymorphism
+package payment
+
+import "fmt"
+
+type PaymentOption interface {
+	ProcessPayment(float32) bool
+}
+
+type CreditCard struct{}
+
+func (c *CreditCard) ProcessPayment(amount float32) bool {
+	fmt.Println("Paying with credit card")
+	return true
+}
+
+type CheckingAccount struct{}
+
+func (c CheckingAccount) ProcessPayment(amount float32) bool {
+	fmt.Println("Paying with checking account")
+	return true
 }

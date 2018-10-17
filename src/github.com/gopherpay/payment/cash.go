@@ -1,3 +1,5 @@
+/*
+// Encapsulation
 package payment
 
 import "fmt"
@@ -12,3 +14,5 @@ func (a Cash) ProcessPayment(amount float32) bool {
 	fmt.Println("Process a cash transaction...")
 	return true
 }
+*/
+package payment
